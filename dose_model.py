@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-class BasicNN_train(nn.Module):
+class BasicNN(nn.Module):
     
     def __init__(self): # Create and initialize the weights and biases
         super().__init__() # Call the initialization method for the parent class, nn.Module
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     train_inputs = torch.tensor([0.0, 0.5, 1.0], device=device)
     train_labels = torch.tensor([0.0, 1.0, 0.0], device=device)
     
-    model = BasicNN_train().to(device)
+    model = BasicNN().to(device)
     trainer_class = ModelTrainer(model, train_inputs, train_labels)
     trainer_class.train()
     
