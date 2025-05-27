@@ -1,4 +1,4 @@
-# PyTorch Fundamentals – Dose-Response Neural Network
+# PyTorch + Lightning Fundamentals – Dose-Response Neural Network
 
 This repository demonstrates a minimal neural network designed to learn a **single trainable parameter** (`b_final`) that shapes a biologically inspired **dose-response curve**.
 
