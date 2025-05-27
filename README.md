@@ -39,14 +39,14 @@ This shape mimics the idea that a certain dose yields a maximal response, while 
 ---
 
 ## 📂 File Structure
-.
+```
 ├── images/
 │ ├── model-diagram.png # Diagram of the fixed architecture
 │ └── target-dose-response.png # Target spike/bump output
 ├── dose-model-pytorch.py # Plain PyTorch training script
 ├── dose-model-lightning.py # PyTorch Lightning version with LR tuning
 └── README.md
-
+```
 ---
 
 ## 🚀 Training Overview
