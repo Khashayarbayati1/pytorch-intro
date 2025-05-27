@@ -75,7 +75,7 @@ class ModelTrainer:
             optimizer.step() # to take a small step toward a better value for parameter(s) we want to optimize. It has access to derivatives stored in the model.
             optimizer.zero_grad() # to zero out the derivatives that we're storing in model
             
-            print("Step: " + str(epoch) + ", Final Bias: " + str(model.final_bias.data.detach().cpu()) + "\n")
+            print(f"Step: {epoch}, Final Bias: {model.final_bias.item():.4f}\n")
             
 if __name__ == "__main__":
     
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     
     input_doses = torch.linspace(start=0, end=1, steps=11).to(device)
     
-    output_value = model(input_doses).detach().cpu() # By default it calls the forward method
+    output_value = model(input_doses) # By default it calls the forward method
     
     sns.set(style="whitegrid")
     sns.lineplot(
