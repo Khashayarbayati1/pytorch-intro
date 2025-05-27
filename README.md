@@ -1,45 +1,77 @@
-<<<<<<< HEAD
-# PyTorch Fundamentals – Dose Response Neural Net
-=======
-# PyTorch + Lightning Fundamentals – Dose Response Neural Net
->>>>>>> 15268f3 (Add Lightning version of training pipeline)
+# PyTorch Fundamentals – Dose-Response Neural Network
 
-This repository demonstrates a simple neural network built with PyTorch to model a dose-response curve using a minimal dataset. The model consists of fixed weights and biases (except for the final bias), and the training process tunes this final parameter to match the desired output.
+This repository demonstrates a minimal neural network designed to learn a **single trainable parameter** (`b_final`) that shapes a biologically inspired **dose-response curve**.
+
+Two training pipelines are provided:
+- A pure **PyTorch** implementation
+- A more modular **PyTorch Lightning** version with learning rate tuning
 
 ---
 
 ## 🧠 Model Architecture
 
-The model uses:
-- Two parallel ReLU blocks
-- A learnable final bias
-- Fixed weights and biases for all other components
+The model is hardcoded with:
+- Two parallel ReLU branches
+- Fixed weights and biases in all layers
+- A single **learnable final bias** (`b_final`) updated during training
 
-Here's the architecture:
+The outputs of both branches are summed, offset by `b_final`, and passed through a final ReLU.
 
-![Model Architecture](images/model-diagram.png)
+<p align="center">
+  <img src="images/model-diagram.png" width="800" alt="Model Diagram"/>
+</p>
 
 ---
 
 ## 📈 Target Output
 
-The training dataset consists of just 3 points, intended to produce a “Yes–No–Yes” (bump) pattern across dosage levels.
+The training data is synthetic and designed to produce a "bump" or "spike" pattern in response to input dose values:
 
-![Target Dose Response](images/target-dose-response.png)
+- **Input doses:** `[0.0, 0.5, 1.0]`
+- **Target outputs:** `[0.0, 1.0, 0.0]`
 
-- Input: `[0.0, 0.5, 1.0]`
-- Labels: `[0.0, 1.0, 0.0]`
+This shape mimics the idea that a certain dose yields a maximal response, while others yield none.
+
+<p align="center">
+  <img src="images/target-dose-response.png" width="300" alt="Target Output Shape"/>
+</p>
 
 ---
 
-## 🚀 Training
+## 📂 File Structure
 
-- Optimizer: SGD with `lr = 0.1`
-- Loss: Squared error between predicted and target values
-<<<<<<< HEAD
-- Only the final bias is updated during training
+---
 
+## 🚀 Training Overview
 
-=======
-- Only the final bias is updated during training
->>>>>>> 15268f3 (Add Lightning version of training pipeline)
+### PyTorch Version (`dose-model-pytorch.py`)
+- Optimizes only `b_final` using **SGD**
+- Fixed learning rate `lr = 0.1`
+- Simple training loop over the 3-point dataset
+
+### Lightning Version (`dose-model-lightning.py`)
+- Uses `pytorch-lightning` for modular training
+- Performs **learning rate finding** with `lr_find()`
+- Trains for up to 34 epochs with `DataLoader` on 300 synthetic samples (3 repeated × 100)
+
+---
+
+## 🧪 Example Output
+
+After training, the model learns the optimal value for `b_final` that best fits the target dose-response shape. The script also generates a plot of the predicted curve using `matplotlib` and `seaborn`.
+
+---
+
+## 🛠️ Requirements
+
+- Python 3.8+
+- `torch`
+- `matplotlib`
+- `seaborn`
+- `pytorch-lightning`
+
+Install dependencies with:
+
+```bash
+pip install torch matplotlib seaborn lightning
+
